@@ -79,6 +79,7 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 		orgID        uuid.UUID
 		wantLen      int
 		expectError  bool
+		errorMessage string
 	}{
 		{
 			name:       "returns child folders for alpha",
@@ -95,11 +96,28 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 			expectError: false,
 		},
 		{
-			name:       "returns error for invalid folder",
+			name:       "returns error for not existing folder name",
 			folderName: "invalid",
 			orgID:      org1ID,
 			wantLen:    0,
 			expectError: true,
+			errorMessage: "Folder does not exist",
+		},
+		{
+			name:       "returns error for not existing folder name in specific organization",
+			folderName: "foxtrot",
+			orgID:      org1ID,
+			wantLen:    0,
+			expectError: true,
+			errorMessage: "Folder does not exist in the specified organization",
+		},
+		{
+			name:       "returns error for not existing folder name in specific organization",
+			folderName: "bravo",
+			orgID:      org2ID,
+			wantLen:    0,
+			expectError: true,
+			errorMessage: "Folder does not exist in the specified organization",
 		},
 	}
 

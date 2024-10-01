@@ -1,8 +1,6 @@
 package folder
 
 import (
-	"fmt"
-
 	"errors"
 	"github.com/gofrs/uuid"
 )
@@ -43,7 +41,6 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, err
 
 		for _, folder := range folders {
 			if folder.Name == name {
-				fmt.Printf("Found folder with name: %s but OrgID does not match\n", folder.Name) // Debug: Folder name exists, but OrgID mismatch
 				return nil, errors.New("Folder does not exist in the specified organization")
 			}
 		}
