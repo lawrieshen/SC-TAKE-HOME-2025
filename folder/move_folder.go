@@ -16,24 +16,23 @@ func (f *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 	}
 
 	// Locate source and destination
-	for _, folder := range folders {
-
-		if folder.Name == name {
-			source = &folder
+	for i := range folders {
+		if folders[i].Name == name {
+			source = &folders[i]
 		} 
-		if folder.Name == dst {
-			destination = &folder
+		if folders[i].Name == dst {
+			destination = &folders[i]
 		}
 	}
 
 	// Check if source or destination is nil
-    if source == nil {
-        return nil, errors.New("Source folder does not exist")
-    }
+	if source == nil {
+		return nil, errors.New("Source folder does not exist")
+	}
 
-    if destination == nil {
-        return nil, errors.New("Destination folder does not exist")
-    }
+	if destination == nil {
+		return nil, errors.New("Destination folder does not exist")
+	}
 
 	// Check if source and destination are under the same organization or not
 	if source.OrgId != destination.OrgId {
@@ -41,17 +40,20 @@ func (f *driver) MoveFolder(name string, dst string) ([]Folder, error) {
 	}
 
 	// Check if source and destination are on the same path or not
-    if strings.Contains(destination.Paths, source.Paths) {
-        return nil, errors.New("Cannot move a folder to a child of itself")
-    }
+	if strings.Contains(destination.Paths, source.Paths) {
+		return nil, errors.New("Cannot move a folder to a child of itself")
+	}
 
 	// Update the path of the source folder and its children
-    for _, folder := range folders {
-        if folder.Name == name && strings.Contains(folder.Paths, source.Paths) {
-            relativePaths := strings.TrimPrefix(folder.Paths, source.Paths)
-            folder.Paths = destination.Paths + "." + source.Name + relativePaths
-        }
-    }
+	oldPath := source.Paths
+	newPath := destination.Paths + "." + source.Name
+
+	for i := range folders {
+		if strings.HasPrefix(folders[i].Paths, oldPath) {
+			relativePaths := strings.TrimPrefix(folders[i].Paths, oldPath)
+			folders[i].Paths = newPath + relativePaths
+		}
+	}
 
 	return folders, nil
 }
