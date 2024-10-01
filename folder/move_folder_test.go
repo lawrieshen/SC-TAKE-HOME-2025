@@ -8,12 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// func Test_folder_MoveFolder(t *testing.T) {
-// 	// TODO: your tests here
 
-// }
-
-func TestMoveFolder(t *testing.T) {
+func Test_folder_MoveFolder(t *testing.T) {
 	t.Parallel()
 	org1Id := uuid.Must(uuid.NewV4())
 	org2Id := uuid.Must(uuid.NewV4())

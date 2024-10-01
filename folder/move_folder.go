@@ -6,7 +6,6 @@ import (
 )
 
 func (f *driver) MoveFolder(name string, dst string) ([]Folder, error) {
-	// Your code here...
 	folders := f.folders
 	var source *Folder
 	var destination *Folder
