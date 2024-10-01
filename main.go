@@ -8,15 +8,10 @@ import (
 )
 
 func main() {
-	orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
+	// orgID := uuid.FromStringOrNil(folder.DefaultOrgID)
+    res := folders.GenerateData()
 
-	res := folder.GetAllFolders()
+    folders.PrettyPrint(res)
 
-	// example usage
-	folderDriver := folder.NewDriver(res)
-	orgFolder := folderDriver.GetFoldersByOrgID(orgID)
-
-	folder.PrettyPrint(res)
-	fmt.Printf("\n Folders for orgID: %s", orgID)
-	folder.PrettyPrint(orgFolder)
+    folders.WriteSampleData(res)
 }
