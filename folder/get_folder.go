@@ -54,7 +54,7 @@ func (f *driver) GetAllChildFolders(orgID uuid.UUID, name string) ([]Folder, err
 	// Find the child folders by validating the path prefix
 	res := []Folder{}
 	for _, folder := range folders {
-		if folder.OrgId == orgID && len(folder.Paths) >= len(parentFolder.Paths) &&
+		if folder.OrgId == orgID && len(folder.Paths) > len(parentFolder.Paths) &&
 			folder.Paths[:len(parentFolder.Paths)] == parentFolder.Paths {
 			res = append(res, folder)
 		}
