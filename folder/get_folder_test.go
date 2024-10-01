@@ -81,21 +81,20 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 		expectError  bool
 		errorMessage string
 	}{
-		{
-			name:       "returns child folders for alpha",
-			folderName: "alpha",
+		{	// Normal Case
+			name:       "Returns child folders for alpha",
 			orgID:      org1ID,
 			wantLen:    3,
 			expectError: false,
 		},
-		{
-			name:       "returns no child folders for bravo",
+		{	 // Normal case
+			name:       "Returns no child folders for bravo",
 			folderName: "bravo",
 			orgID:      org1ID,
 			wantLen:    1,
 			expectError: false,
 		},
-		{
+		{	// Edge Case
 			name:       "returns error for not existing folder name",
 			folderName: "invalid",
 			orgID:      org1ID,
@@ -103,7 +102,7 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 			expectError: true,
 			errorMessage: "Folder does not exist",
 		},
-		{
+		{	// Edge Case
 			name:       "returns error for not existing folder name in specific organization",
 			folderName: "foxtrot",
 			orgID:      org1ID,
@@ -111,7 +110,7 @@ func Test_folder_GetAllChildFolders(t *testing.T) {
 			expectError: true,
 			errorMessage: "Folder does not exist in the specified organization",
 		},
-		{
+		{	// Edge Case
 			name:       "returns error for not existing folder name in specific organization",
 			folderName: "bravo",
 			orgID:      org2ID,
